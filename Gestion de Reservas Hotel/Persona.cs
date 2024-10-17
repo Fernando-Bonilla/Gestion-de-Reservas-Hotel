@@ -14,7 +14,7 @@ namespace Gestion_de_Reservas_Hotel
         public int Id { get; private set; }
         public string ?Nombre { get; set; }
         public string ?Apellido { get; set; }
-        public string TipoDocumento { get; set; }
+        public string ?TipoDocumento { get; set; }
         public int NumeroDocumento { get; set; }
         public DateOnly FechaNacimiento { get; set; }
         public int Telefono { get; set; }
@@ -22,6 +22,19 @@ namespace Gestion_de_Reservas_Hotel
         #endregion Propiedades
 
         #region Constructores
+
+        public Persona()
+        {
+            
+        }
+
+        public Persona(string nombre, string apellido, string email)
+        {
+            Nombre = nombre;
+            Apellido = apellido;                   
+            Email = email;
+        }
+
         public Persona(string nombre, string apellido, string tipoDocumento, int numeroDocumento, DateOnly fechaNacimiento, int telefono, string email)
         {
             Id = idGenerator++;

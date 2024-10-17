@@ -15,7 +15,7 @@ namespace Gestion_de_Reservas_Hotel
         #endregion Propiedades
 
         #region Constructores
-        public Huesped(string nombre, string apellido, string tipoDocumento, int numDocumento, DateTime fechaNacimiento, int telefono, string email, string pais) : base(nombre, apellido, tipoDocumento, numDocumento, fechaNacimiento, telefono, email) 
+        public Huesped(string nombre, string apellido, string tipoDocumento, int numDocumento, DateOnly fechaNacimiento, int telefono, string email, string pais) : base(nombre, apellido, tipoDocumento, numDocumento, fechaNacimiento, telefono, email) 
         {
             Pais = pais;
         }
