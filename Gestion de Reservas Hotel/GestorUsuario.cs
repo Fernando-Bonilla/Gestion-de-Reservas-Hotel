@@ -43,6 +43,14 @@ namespace Gestion_de_Reservas_Hotel
             Console.WriteLine("Confirmar contraseña: ");
             string confirmPassword = Console.ReadLine();
 
+            while (password != confirmPassword)
+            {
+                Console.WriteLine("La contraseña y confirmacion deben coincidir");
+                Console.WriteLine("Nueva Contraseña: ");
+                password = Console.ReadLine();
+                Console.WriteLine("Confirmar Nueva Contraseña: ");
+                confirmPassword = Console.ReadLine();
+            }
 
             Usuario usuario = new Usuario(nombre, apellido, email, password, confirmPassword);
             usuarios.Add(usuario);
@@ -69,9 +77,40 @@ namespace Gestion_de_Reservas_Hotel
                 {
                     Console.WriteLine("Error de logueo");
                 }
-            }            
+            }           
             
 
+        }
+
+        public static void RecuperarPassword()
+        {
+            Console.WriteLine("Email: ");
+            string? email = Console.ReadLine();
+
+            Console.WriteLine("Nueva Contraseña: ");
+            string? password = Console.ReadLine();
+
+            Console.WriteLine("Confirmar Nueva Contraseña: ");
+            string confirmPassword = Console.ReadLine();
+
+            while(password != confirmPassword)
+            {
+                Console.WriteLine("La contraseña y confirmacion deben coincidir");
+                Console.WriteLine("Nueva Contraseña: ");
+                password = Console.ReadLine();
+                Console.WriteLine("Confirmar Nueva Contraseña: ");
+                confirmPassword = Console.ReadLine();
+            }
+
+            foreach(Usuario usuario in usuarios)
+            {
+                if (usuario.Email == email)
+                {
+                    usuario.Password = password;
+                }
+            }
+
+            Console.WriteLine("Contraseña cambiada");
         }
     }
 }
