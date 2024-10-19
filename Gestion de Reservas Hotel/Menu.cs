@@ -199,9 +199,11 @@ namespace Gestion_de_Reservas_Hotel
                     case 2:GestorReserva.RealizarReserva(); 
                         break;  
 
-                    case 3:
+                    case 3: GestorReserva.ModificarReserva();
+                        break;
 
-                    case 4:
+                    case 4: GestorReserva.CancelarReserva();
+                        break;  
 
                     case 0: salir = true;
                         break;

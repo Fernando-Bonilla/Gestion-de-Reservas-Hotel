@@ -18,20 +18,53 @@ namespace Gestion_de_Reservas_Hotel
             Usuario usuario2 = new Usuario("Nacho", "Bolso", "galli@gmail.com", "321", "321");
             GestorUsuario.usuarios.Add(usuario2);
 
-
+            // Instancio habitaciones
             Habitacion habitacion1 = new Habitacion(101, "simple", 2);
             GestorHabitaciones.AgregarHabitaciones(habitacion1);
 
             Habitacion habitacion2 = new Habitacion(102, "simple", 2);
             GestorHabitaciones.AgregarHabitaciones(habitacion2);
 
-            Habitacion habitacion3 = new Habitacion(103, "doble", 4);
+            Habitacion habitacion3 = new Habitacion(103, "simple", 4);
             GestorHabitaciones.AgregarHabitaciones(habitacion3);
 
-            Habitacion habitacion4 = new Habitacion(104, "suite", 6);
+            Habitacion habitacion4 = new Habitacion(104, "simple", 6);
             GestorHabitaciones.AgregarHabitaciones(habitacion4);
 
+            Habitacion habitacion5 = new Habitacion(105, "simple", 2);
+            GestorHabitaciones.AgregarHabitaciones(habitacion5);
 
+            Habitacion habitacion6 = new Habitacion(106, "simple", 2);
+            GestorHabitaciones.AgregarHabitaciones(habitacion6);
+
+            Habitacion habitacion7 = new Habitacion(107, "simple", 2);
+            GestorHabitaciones.AgregarHabitaciones(habitacion5);
+
+            Habitacion habitacion8 = new Habitacion(108, "simple", 2);
+            GestorHabitaciones.AgregarHabitaciones(habitacion8);
+
+            Habitacion habitacion9 = new Habitacion(109, "simple", 2);
+            GestorHabitaciones.AgregarHabitaciones(habitacion9);
+
+            Habitacion habitacion10 = new Habitacion(110, "simple", 2);
+            GestorHabitaciones.AgregarHabitaciones(habitacion10);
+
+            Habitacion habitacion11 = new Habitacion(201, "doble", 4);
+            GestorHabitaciones.AgregarHabitaciones(habitacion11);
+
+            Habitacion habitacion12 = new Habitacion(202, "doble", 4);
+            GestorHabitaciones.AgregarHabitaciones(habitacion12);
+
+            Habitacion habitacion21 = new Habitacion(301, "suite", 6);
+            GestorHabitaciones.AgregarHabitaciones(habitacion21);
+
+            Habitacion habitacion22 = new Habitacion(302, "suite", 6);
+            GestorHabitaciones.AgregarHabitaciones(habitacion22);
+
+
+
+
+            // Genero un par de reservas para tener para testear
             Reserva reserva1 = new Reserva(101, new DateTime(2024, 11, 25), new DateTime(2024, 11, 29), 200, "asd@gmail.com");
             GestorReserva.reservas.Add(reserva1);
 

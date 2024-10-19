@@ -8,7 +8,7 @@ namespace Gestion_de_Reservas_Hotel
 {
     internal class GestorHabitaciones
     {
-        public Dictionary<string,int> tarifas = new Dictionary<string,int>{
+        public static Dictionary<string,int> tarifas = new Dictionary<string,int>{
 
             { "simple", 100 },
             { "doble", 150 },
@@ -16,7 +16,7 @@ namespace Gestion_de_Reservas_Hotel
         };
 
         public static List<Habitacion> habitaciones = new List<Habitacion>();
-        public static List<Habitacion> habitacionesReservadas = new List<Habitacion>();
+        //public static List<Habitacion> habitacionesReservadas = new List<Habitacion>();
 
 
         #region Metodos
@@ -27,10 +27,49 @@ namespace Gestion_de_Reservas_Hotel
 
         public static void ListarHabitaciones()
         {
-            foreach (Habitacion habitacion in habitaciones)
+            // Pidiendo la fecha de Check-in
+            Console.WriteLine("Ingrese la Fecha de Check-In (formato: dd/MM/yyyy):");
+
+            DateTime fechaCheckIn;
+            bool success = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fechaCheckIn);
+            while (!success || fechaCheckIn < DateTime.Today)
             {
-                Console.WriteLine($"N° Hab.: {habitacion.NumHabitacion}, Tipo Hab.: {habitacion.TipoHabitacion}, Capacidad: {habitacion.CapacidadHabitacion}");
+                if (!success)
+                {
+                    Console.WriteLine("Formato de fecha inválido. Ingrese nuevamente en formato dd/MM/yyyy:");
+                }
+                else
+                {
+                    Console.WriteLine("La fecha de Check-In no puede ser anterior al día de hoy. Inténtelo de nuevo:");
+                }
+                success = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fechaCheckIn);
             }
+
+            // Pidiendo la fecha de Check-Out
+            Console.WriteLine("Ingrese la fecha de Check-Out (formato: dd/MM/yyyy):");
+            DateTime fechaCheckOut;
+            success = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fechaCheckOut);
+            while (!success || fechaCheckOut <= fechaCheckIn)
+            {
+                if (!success)
+                {
+                    Console.WriteLine("Formato de fecha inválido. Ingrese nuevamente en formato dd/MM/yyyy:");
+                }
+                else
+                {
+                    Console.WriteLine("La fecha de Check-Out debe ser posterior a la fecha de Check-In. Inténtelo de nuevo:");
+                }
+                success = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fechaCheckOut); //el metodo TryParseExact obliga al usuario a que ingrese formato "dd/MM/yyyy", y luego dos paramentros 1- IFormatProvider = null, para la cultura, y 2- DateTimeStyles = None, controla cómo se deben interpretar las fechas (si se permiten espacios en blanco)
+            }
+
+            foreach (Habitacion habitacion in habitaciones) 
+            {
+                if(GestorReserva.CkeckStatusHabitacion(habitacion.NumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")
+                {
+                    Console.WriteLine(habitacion.ToString());
+                } 
+            }
+
         }
 
         public static void ListaDeFechasReservadas()

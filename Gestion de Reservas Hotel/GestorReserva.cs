@@ -67,20 +67,26 @@ namespace Gestion_de_Reservas_Hotel
             Console.WriteLine("Ingrese la fecha de Check-Out (formato: dd/MM/yyyy):");
             DateTime fechaCheckOut;
             success = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fechaCheckOut);
-            while (!success || fechaCheckOut <= fechaCheckIn)
+            double duracionReserva = (fechaCheckOut - fechaCheckIn).TotalDays;
+            while (!success || duracionReserva > 30 || fechaCheckOut <= fechaCheckIn)
             {
                 if (!success)
                 {
                     Console.WriteLine("Formato de fecha inválido. Ingrese nuevamente en formato dd/MM/yyyy:");
+
                 }
-                else
+                else if(duracionReserva > 30)
+                {
+                    Console.WriteLine("La reserva no puede ser mayor a 30 dias seguidos");
+                }                
+                else 
                 {
                     Console.WriteLine("La fecha de Check-Out debe ser posterior a la fecha de Check-In. Inténtelo de nuevo:");
                 }
-                success = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fechaCheckOut);
+                success = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fechaCheckOut); //el metodo TryParseExact obliga al usuario a que ingrese formato "dd/MM/yyyy", y luego dos paramentros 1- IFormatProvider = null, para la cultura, y 2- DateTimeStyles = None, controla cómo se deben interpretar las fechas (si se permiten espacios en blanco)
             }
 
-            Reserva reserva = new Reserva(numHabitacion, fechaCheckIn, fechaCheckOut, GestorUsuario.currentUser.Id, GestorUsuario.currentUser.Email);
+            Reserva reserva = new Reserva(numHabitacion, fechaCheckIn, fechaCheckOut, GestorUsuario.currentUser.Id, GestorUsuario.currentUser.Email); 
             GestorReserva.reservas.Add(reserva);
 
             string mensajeResCreada = $"Reserva Creada: Cod.Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fecha Check-In: {FormatoFecha(reserva.FechaCheckIn)}, " +
@@ -95,7 +101,76 @@ namespace Gestion_de_Reservas_Hotel
             
         }
 
+        public static string CkeckStatusHabitacion(int numHabitacion, DateTime fechaCheckIn, DateTime fechaCheckOut)
+        { 
+            List<int> habitacionesReservadas = new List<int>();
+            foreach (Reserva reserva in reservas)
+            {
 
+                double duracionReserva = (reserva.FechaCheckOut - reserva.FechaCheckIn).TotalDays; //Uso la propiedad .TotalDays de la clase DateTime, ya que las fechas son de este tipo de dato
+                double duracionReservaDeseada = (fechaCheckOut - fechaCheckIn).TotalDays;
+
+                if (numHabitacion == reserva.NroHabitacion && fechaCheckIn >= reserva.FechaCheckIn && fechaCheckIn <= reserva.FechaCheckOut && fechaCheckOut >= reserva.FechaCheckIn && fechaCheckOut <= reserva.FechaCheckOut)
+                {
+                    habitacionesReservadas.Add(numHabitacion);
+                }
+            }
+
+            if(habitacionesReservadas.Contains(numHabitacion))
+            {
+                return "Ocupada";
+            }else
+            {
+                return "Disponible";
+            }
+
+        }
+
+        public static void ModificarReserva()
+        {
+
+        }
+
+        public static void CancelarReserva()
+        {
+            Console.WriteLine("Ingrese el codigo de Reserva");
+            int codigoReserva;
+            bool success = int.TryParse(Console.ReadLine(), out codigoReserva);
+
+            while (!success)
+            {
+                Console.WriteLine("Por favor debe ingresar un valor numerico de al menos 5 digitos");
+                success = int.TryParse(Console.ReadLine(), out codigoReserva);
+            }
+
+
+            //Como C# no me deja eliminar mientras recorro una colleccion, si el n° reserva matchea con uno existente la guarda en una nueva list
+            List<Reserva> reservaAEliminar = new List<Reserva>();
+            
+            foreach(Reserva reserva in reservas)
+            {
+                if (reserva.IDReserva == codigoReserva)
+                {
+
+                    reservaAEliminar.Add(reserva);                                    
+                    
+                }
+            }
+
+            if (reservaAEliminar.Count == 0)
+            {
+                Console.WriteLine("No se encontraron coincidencias con el N° de reserva proporcionado");
+            }
+
+            foreach (Reserva reserva in reservaAEliminar)
+            {
+                
+                Console.WriteLine($"Reserva N°: {reserva.IDReserva} cancelada");
+                reservas.Remove(reserva);               
+                              
+            }
+
+        }
         #endregion Metodos
     }
 }
