@@ -8,6 +8,13 @@ namespace Gestion_de_Reservas_Hotel
 {
     internal class GestorHabitaciones
     {
+        public Dictionary<string,int> tarifas = new Dictionary<string,int>{
+
+            { "simple", 100 },
+            { "doble", 150 },
+            { "suite", 200 }
+        };
+
         public static List<Habitacion> habitaciones = new List<Habitacion>();
         public static List<Habitacion> habitacionesReservadas = new List<Habitacion>();
 

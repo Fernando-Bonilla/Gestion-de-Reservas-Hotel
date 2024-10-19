@@ -9,6 +9,7 @@ namespace Gestion_de_Reservas_Hotel
     internal class GestorUsuario
     {
         public static List<Usuario> usuarios = new List<Usuario>();
+        public static Usuario currentUser;
 
         public static void CrearUsuario()
         {
@@ -70,16 +71,15 @@ namespace Gestion_de_Reservas_Hotel
             {
                 if(usuario.Email == email && usuario.Password == password)
                 {
+                    currentUser = usuario; //Guardo los datos del usuario que esta logueado actualmente para poder pasar estos datos al momento de generar una reserva
+
                     Menu.LimpiarPantalla();
                     Menu.MostrarMenuLogueado();
-                }
-                else
-                {
-                    Console.WriteLine("Error de logueo");
-                }
-            }           
-            
+                    return;
+                }           
 
+            }
+            Console.WriteLine("Error de logueo");
         }
 
         public static void RecuperarPassword()

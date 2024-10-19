@@ -30,6 +30,7 @@ namespace Gestion_de_Reservas_Hotel
 
         public Persona(string nombre, string apellido, string email)
         {
+            Id = idGenerator++;
             Nombre = nombre;
             Apellido = apellido;                   
             Email = email;

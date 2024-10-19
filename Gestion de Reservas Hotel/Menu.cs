@@ -196,7 +196,8 @@ namespace Gestion_de_Reservas_Hotel
                     case 1: GestorHabitaciones.ListarHabitaciones(); 
                         break;
 
-                    case 2:
+                    case 2:GestorReserva.RealizarReserva(); 
+                        break;  
 
                     case 3:
 
