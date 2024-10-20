@@ -25,6 +25,19 @@ namespace Gestion_de_Reservas_Hotel
             habitaciones.Add(habitacion);
         }
 
+        public static bool NumHabitacionExiste(int numHabitacion)
+        {
+            
+            if(habitaciones.Any(habitacion => habitacion.NumHabitacion == numHabitacion))
+            {
+                return true;
+            }else
+            {
+                return false;
+            }
+            
+        }
+
         public static void ListarHabitaciones()
         {
             // Pidiendo la fecha de Check-in
