@@ -70,6 +70,9 @@ namespace Gestion_de_Reservas_Hotel
 
             Reserva reserva2 = new Reserva(103, new DateTime(2024, 12, 5), new DateTime(2024, 12, 9), 201, "galli@gmail.com");
             GestorReserva.reservas.Add(reserva2);
+
+            Reserva reserva3 = new Reserva(302, new DateTime(2024, 11, 20), new DateTime(2024, 11, 23), 201, "galli@gmail.com");
+            GestorReserva.reservas.Add(reserva3);
         }
         
     }

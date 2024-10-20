@@ -73,6 +73,7 @@ namespace Gestion_de_Reservas_Hotel
                 {
                     currentUser = usuario; //Guardo los datos del usuario que esta logueado actualmente para poder pasar estos datos al momento de generar una reserva
 
+                    Console.WriteLine($"Bienvenido {usuario.Nombre}");
                     Menu.LimpiarPantalla();
                     Menu.MostrarMenuLogueado();
                     return;

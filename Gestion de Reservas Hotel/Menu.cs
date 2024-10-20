@@ -86,7 +86,7 @@ namespace Gestion_de_Reservas_Hotel
                 Console.WriteLine("");
                 Console.WriteLine("3. Estadisticas y reportes");
                 Console.WriteLine("");
-                Console.WriteLine("0. Salir");
+                Console.WriteLine("0. Volver al Menu de inicio de sesion");
 
                 int opcion;
 
