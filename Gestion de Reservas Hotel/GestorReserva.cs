@@ -211,7 +211,7 @@ namespace Gestion_de_Reservas_Hotel
             }
 
             int numHabitacion = 0;
-            int nuevoNumHabitacion = numHabitacion;
+            //int nuevoNumHabitacion = numHabitacion;
             if (cambioHab == "y")
             {                
                 Console.WriteLine("Ingrese el nuevo N° hab.: ");
@@ -222,13 +222,14 @@ namespace Gestion_de_Reservas_Hotel
                     Console.WriteLine("Por favor ingrese un N° de hab. valido");
                     successNumHab = int.TryParse(Console.ReadLine(), out numHabitacion);
                 }
-            }            
+            }
+            int nuevoNumHabitacion = numHabitacion;
 
-            
-            //Si desea cambiar chequeo que la unidad exista y este disponible en ese rango de fecha
-            if(cambioHab == "y" && GestorHabitaciones.NumHabitacionExiste(nuevoNumHabitacion) == true && 
-                GestorReserva.CkeckStatusHabitacion(nuevoNumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")
+            //Si desea cambiar chequeo que la unidad exista y este disponible en ese rango de fecha, ya sea que decida cambiar de hab o no
+            if (cambioHab == "y" | cambioHab == "n" && GestorHabitaciones.NumHabitacionExiste(nuevoNumHabitacion) == true &&
+                GestorReserva.CkeckStatusHabitacion(nuevoNumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")                
             {
+                Console.WriteLine("fech CI" + fechaCheckIn);
                 //Busco la reserva en la lista reservas y la modifico
                 foreach (Reserva reserva in reservas)
                 {
@@ -242,22 +243,11 @@ namespace Gestion_de_Reservas_Hotel
                             $"N° Hab: {reserva.NroHabitacion}, Fech. Check-In: {FormatoFecha(reserva.FechaCheckIn)}, Fech. Check-Out: {FormatoFecha(reserva.FechaCheckOut)}");
                     }
                 }
-            //si no desea cambiar de habitacion solo modifico las fechas
+            
             }else
             {
-                foreach (Reserva reserva in reservas)
-                {
-                    if (reserva.IDReserva == numReserva)
-                    {                        
-                        reserva.FechaCheckIn = fechaCheckIn;
-                        reserva.FechaCheckOut = fechaCheckOut;
-
-                        Console.WriteLine($"Reserva {reserva.IDReserva} correctamente modificada \n" +
-                            $"N° Hab: {reserva.NroHabitacion}, Fech. Check-In: {FormatoFecha(reserva.FechaCheckIn)}, Fech. Check-Out: {FormatoFecha(reserva.FechaCheckOut)}");
-                    }
-                }
-            }                   
-
+                Console.WriteLine("Habitacion no disponible en ese rango de fechas");
+            }                 
 
         }
 
