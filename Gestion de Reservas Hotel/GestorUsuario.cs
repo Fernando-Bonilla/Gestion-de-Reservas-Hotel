@@ -19,24 +19,46 @@ namespace Gestion_de_Reservas_Hotel
             Console.WriteLine("Nombre: ");
             string ?nombre = Console.ReadLine();
 
+            while (ChequearInformacionNoEsVaciaONula(nombre))
+            {
+                Console.WriteLine("El campo no puede estar vacio: ");
+                nombre = Console.ReadLine();
+            }
+
             Console.WriteLine("Apellido: ");
             string ?apellido = Console.ReadLine();
 
-            /*Console.WriteLine("Telefono: ");
-            string telefono = Console.ReadLine();
-
-            int numeroTelefono;
-            bool successTelefono = int.TryParse(telefono, out numeroTelefono);
-
-            while (!successTelefono || numeroTelefono < 10000000) 
+            while (ChequearInformacionNoEsVaciaONula(apellido))
             {
-                Console.WriteLine("El numero de telefono debe tener al menos 8 digitos");
-                telefono = Console.ReadLine();
-                successTelefono = int.TryParse(telefono, out numeroTelefono);
-            }*/
+                Console.WriteLine("El campo no puede estar vacio: ");
+                apellido = Console.ReadLine();
+            }
 
             Console.WriteLine("Email: ");
-            string ?email = Console.ReadLine();
+            string ?email = Console.ReadLine();            
+
+            // Valida si el email ya existe o si su formato es incorrecto
+            while (true)
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("El campo no puede estar vacío. Ingrese un email válido:");
+                }
+                else if (!ChequearFormatoEmail(email)) // Aquí se chequea solo el formato, no si está vacío
+                {
+                    Console.WriteLine("El correo electrónico no tiene un formato válido. Ingrese uno correcto:");
+                }
+                else if (ChequearSiUsuarioExiste(email))
+                {
+                    Console.WriteLine("Email no disponible, por favor ingrese otro:");
+                }
+                else
+                {
+                    break; // Si todas las validaciones pasan, sale del bucle
+                }
+
+                email = Console.ReadLine(); // Pide el email nuevamente si falló alguna validación
+            }
 
             Console.WriteLine("Contraseña: ");
             string ?password = Console.ReadLine();
@@ -44,7 +66,7 @@ namespace Gestion_de_Reservas_Hotel
             Console.WriteLine("Confirmar contraseña: ");
             string confirmPassword = Console.ReadLine();
 
-            while (password != confirmPassword)
+            while (password != confirmPassword || ChequearInformacionNoEsVaciaONula(password) || ChequearInformacionNoEsVaciaONula(confirmPassword))
             {
                 Console.WriteLine("La contraseña y confirmacion deben coincidir");
                 Console.WriteLine("Nueva Contraseña: ");
@@ -63,7 +85,31 @@ namespace Gestion_de_Reservas_Hotel
         public static void IniciarSesion()
         {
             Console.WriteLine("Email: ");
-            string email = Console.ReadLine();  
+            string email = Console.ReadLine();
+
+            while (true)
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("El campo no puede estar vacío. Ingrese un email válido:");
+                }
+                else if (!ChequearFormatoEmail(email)) // Aquí se chequea solo el formato, no si está vacío
+                {
+                    Console.WriteLine("El correo electrónico no tiene un formato válido. Ingrese uno correcto:");
+                }
+                else if (!ChequearSiUsuarioExiste(email))
+                {
+                    Console.WriteLine("Email incorrecto:");
+                }
+                else
+                {
+                    break; // Si todas las validaciones pasan, sale del bucle
+                }
+
+                email = Console.ReadLine(); // Pide el email nuevamente si falló alguna validación
+            }
+
+
             Console.WriteLine("Contraseña: ");
             string password = Console.ReadLine();
 
@@ -112,6 +158,48 @@ namespace Gestion_de_Reservas_Hotel
             }
 
             Console.WriteLine("Contraseña cambiada");
+        }
+
+        public static bool ChequearSiUsuarioExiste(string email)
+        {
+            if(usuarios.Any(usuario => usuario.Email == email))
+            {
+                Console.WriteLine("true");
+                return true;
+            }else
+            {
+                return false;
+            }
+        }
+
+        public static bool ChequearInformacionNoEsVaciaONula(string dato)
+        {
+            return string.IsNullOrEmpty(dato);
+        }
+
+        public static bool ChequearFormatoEmail(string email)
+        {
+            if(string.IsNullOrEmpty(email))
+            {                
+                return false;
+            }
+            try
+            {
+                string formatoEmail = new System.Net.Mail.MailAddress(email).ToString(); //Chequeo que el mail tenga el formato adecuado usando el metodo .MailAddress() de la clase System.Net
+                
+                if (formatoEmail == email)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (FormatException)
+            {                
+                return false;
+            }
         }
     }
 }

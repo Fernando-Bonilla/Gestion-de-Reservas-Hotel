@@ -117,8 +117,8 @@ namespace Gestion_de_Reservas_Hotel
             foreach (Reserva reserva in reservas)
             {
 
-                double duracionReserva = (reserva.FechaCheckOut - reserva.FechaCheckIn).TotalDays; //Uso la propiedad .TotalDays de la clase DateTime, ya que las fechas son de este tipo de dato
-                double duracionReservaDeseada = (fechaCheckOut - fechaCheckIn).TotalDays;
+                //double duracionReserva = (reserva.FechaCheckOut - reserva.FechaCheckIn).TotalDays; //Uso la propiedad .TotalDays de la clase DateTime, ya que las fechas son de este tipo de dato
+                //double duracionReservaDeseada = (fechaCheckOut - fechaCheckIn).TotalDays;
 
                 if (numHabitacion == reserva.NroHabitacion && fechaCheckIn >= reserva.FechaCheckIn && fechaCheckIn <= reserva.FechaCheckOut && fechaCheckOut >= reserva.FechaCheckIn && fechaCheckOut <= reserva.FechaCheckOut)
                 {
