@@ -29,13 +29,7 @@ namespace Gestion_de_Reservas_Hotel
         }
 
         public static void RealizarReserva()
-        {
-            // Verifica si hay un usuario logueado
-            /*if (GestorUsuario.currentUser == null)
-            {
-                Console.WriteLine("Debe iniciar sesión antes de realizar una reserva.");
-                return "No se pudo crear la reserva";
-            }*/
+        {      
 
             Console.WriteLine("Ingrese N° hab.: ");
             int numHabitacion;
@@ -90,7 +84,7 @@ namespace Gestion_de_Reservas_Hotel
             //Console.WriteLine(GestorHabitaciones.CheckStatusHabitacion(numHabitacion, fechaCheckIn, fechaCheckOut) + "Aca antes del if");
             if (GestorHabitaciones.CheckStatusHabitacion(numHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")
             {                
-                Reserva reserva = new Reserva(numHabitacion, fechaCheckIn, fechaCheckOut, GestorUsuario.currentUser.Id, GestorUsuario.currentUser.Email);
+                Reserva reserva = new Reserva(numHabitacion, fechaCheckIn, fechaCheckOut, GestorUsuario.currentUser.Id, GestorUsuario.currentUser.Email, "Impaga");
                 GestorReserva.reservas.Add(reserva);
 
                 string mensajeResCreada = $"Reserva Creada: Cod.Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fecha Check-In: {FormatoFecha(reserva.FechaCheckIn)}, " +
@@ -123,44 +117,22 @@ namespace Gestion_de_Reservas_Hotel
             foreach(Reserva reserva in reservas)
             {
                 if(reserva.EmailUsuario == email && reserva.FechaCheckIn > today)
-                {
-                    Console.WriteLine($"N° Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fech. Check-in: {GestorReserva.FormatoFecha(reserva.FechaCheckIn)}, Fech. Check-Out: {GestorReserva.FormatoFecha(reserva.FechaCheckOut)}, Fecha reserva: {reserva.FechaReserva}");
+                {                    
+                    
+                    //llamo al metodo que me calcula el costo de la reserva 
+                    int costoEstadia = CalcularCostoReserva(reserva.IDReserva);
+
+                    Console.WriteLine($"N° Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fech. Check-in: {GestorReserva.FormatoFecha(reserva.FechaCheckIn)}, Fech. Check-Out: {GestorReserva.FormatoFecha(reserva.FechaCheckOut)}, Fecha reserva: {reserva.FechaReserva}, Total: ${costoEstadia}, Estado: {reserva.EstadoReserva}");
+                    
                 }
             }
-        }
-
-        /*public static string CkeckStatusHabitacion(int numHabitacion, DateTime fechaCheckIn, DateTime fechaCheckOut)
-        { 
-            List<int> habitacionesReservadas = new List<int>();
-            foreach (Reserva reserva in reservas)
-            {
-
-                //double duracionReserva = (reserva.FechaCheckOut - reserva.FechaCheckIn).TotalDays; //Uso la propiedad .TotalDays de la clase DateTime, ya que las fechas son de este tipo de dato
-                //double duracionReservaDeseada = (fechaCheckOut - fechaCheckIn).TotalDays;
-
-                if (numHabitacion == reserva.NroHabitacion && fechaCheckIn >= reserva.FechaCheckIn && 
-                    fechaCheckIn <= reserva.FechaCheckOut && fechaCheckOut >= reserva.FechaCheckIn && 
-                    fechaCheckOut <= reserva.FechaCheckOut)
-                {
-                    habitacionesReservadas.Add(numHabitacion);
-                }
-            }
-
-            if(habitacionesReservadas.Contains(numHabitacion))
-            {
-                return "Ocupada";
-            }else
-            {
-                return "Disponible";
-            }
-
-        }*/
+        }        
 
         public static void ModificarReserva()
         {
             //Ingreso de N° reserva y chequeo que sea formato correcto
             Console.WriteLine("Ingrese el N° de reserva");
-            int numReserva = 0;
+            int numReserva = 0;            
 
             bool successNumReserva = int.TryParse(Console.ReadLine(), out numReserva);
             while (!successNumReserva) 
@@ -177,6 +149,16 @@ namespace Gestion_de_Reservas_Hotel
             {
                 Console.WriteLine("No existen reservas con el codigo proporcionado");
                 return;
+            }
+
+            // Si la reserva esta paga no se puede modificar, solo cancelar
+            foreach (Reserva reserva in reservas)
+            {
+                if (numReserva == reserva.IDReserva && reserva.EstadoReserva == "Paga")
+                {
+                    Console.WriteLine("No se pueden modificar Reservas ya abonadas");
+                    return;
+                }
             }
 
             //Si N° reserva existe procede a pedir las nuevas fechas
@@ -272,6 +254,43 @@ namespace Gestion_de_Reservas_Hotel
                 Console.WriteLine("Habitacion no disponible en ese rango de fechas");
             }                 
 
+        }
+
+        public static int CalcularCostoReserva(uint numeroReserva) //Este metodo calcula el costo de la estadia, pero no toma en cuenta el ultimo dia ya que el checkOut es en la mañana y no se cobra
+        {
+            int costoTotal = 0;
+            string tipoHabitacion = "";
+            int duracionEstadia = 0;
+
+            foreach (Reserva reserva in reservas)
+            {
+                if(reserva.IDReserva == numeroReserva)
+                {
+                    // Calculo la duracion de la estadia
+                    duracionEstadia = (int)(reserva.FechaCheckOut - reserva.FechaCheckIn).TotalDays;
+
+                    //Consigo que tipo de habitacion es la reserva
+                    foreach (Habitacion habitacion in GestorHabitaciones.habitaciones)
+                    {
+                        if (habitacion.NumHabitacion == reserva.NroHabitacion && reserva.IDReserva == numeroReserva)
+                        {
+                            tipoHabitacion = habitacion.TipoHabitacion;
+                        }
+                    }
+                }
+                
+
+            }            
+
+            foreach (KeyValuePair <string, int> tarifa in GestorHabitaciones.tarifas)
+            {
+                if (tipoHabitacion == tarifa.Key)
+                {
+                    costoTotal = tarifa.Value * duracionEstadia;
+                }
+                
+            }
+            return costoTotal;
         }
 
         public static void CancelarReserva()

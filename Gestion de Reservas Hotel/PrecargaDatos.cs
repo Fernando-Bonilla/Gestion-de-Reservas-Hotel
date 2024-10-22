@@ -65,17 +65,20 @@ namespace Gestion_de_Reservas_Hotel
 
 
             // Genero un par de reservas para tener para testear
-            Reserva reserva1 = new Reserva(101, new DateTime(2024, 11, 25), new DateTime(2024, 11, 29), 200, "asd@gmail.com");
+            Reserva reserva1 = new Reserva(101, new DateTime(2024, 11, 25), new DateTime(2024, 11, 29), 200, "asd@gmail.com", "Impaga");
             GestorReserva.reservas.Add(reserva1);
 
-            Reserva reserva2 = new Reserva(103, new DateTime(2024, 12, 5), new DateTime(2024, 12, 9), 201, "galli@gmail.com");
+            Reserva reserva2 = new Reserva(103, new DateTime(2024, 12, 5), new DateTime(2024, 12, 9), 201, "galli@gmail.com", "Impaga");
             GestorReserva.reservas.Add(reserva2);
 
-            Reserva reserva3 = new Reserva(302, new DateTime(2024, 11, 20), new DateTime(2024, 11, 23), 201, "galli@gmail.com");
+            Reserva reserva3 = new Reserva(302, new DateTime(2024, 11, 20), new DateTime(2024, 11, 23), 201, "galli@gmail.com","Impaga");
             GestorReserva.reservas.Add(reserva3);
 
-            Reserva reserva4 = new Reserva(101, new DateTime(2025, 02, 02), new DateTime(2025, 02, 05), 200, "asd@gmail.com");
+            Reserva reserva4 = new Reserva(101, new DateTime(2025, 02, 02), new DateTime(2025, 02, 05), 200, "asd@gmail.com", "Impaga");
             GestorReserva.reservas.Add(reserva4);
+
+            Reserva reserva5 = new Reserva(201, new DateTime(2024, 10, 23), new DateTime(2024, 10, 28), 200, "asd@gmail.com", "Impaga");
+            GestorReserva.reservas.Add(reserva5);
         }
         
     }

@@ -12,7 +12,40 @@ namespace Gestion_de_Reservas_Hotel
         public List<Pago> pagos = new List<Pago>();
 
         #region Metodos
-        
+        public static void RealizarPago()
+        {
+            Console.WriteLine("Ingrese el N° de reserva");
+            int numReserva = 0;
+
+            bool successNumReserva = int.TryParse(Console.ReadLine(), out numReserva);
+            while (!successNumReserva)
+            {
+                Console.WriteLine("Formato incorrecto, debe ingresar un registro numerico de al menos 5 digitos");
+                successNumReserva = int.TryParse(Console.ReadLine(), out numReserva);
+            }
+
+            // Chequeo que N° reserva exista
+            bool numReservaExiste = GestorReserva.reservas.Any(reserva => reserva.IDReserva == numReserva); //Uso el metodo Linq Any, para check si existen reservas con el codigo proporcionado
+
+
+            if (!numReservaExiste)
+            {
+                Console.WriteLine("No existen reservas con el codigo proporcionado");
+                return;
+            }
+
+            // Chequeo que la reserva no este ya paga
+            foreach (Reserva reserva in GestorReserva.reservas)
+            {
+                if (numReserva == reserva.IDReserva && reserva.EstadoReserva == "Paga")
+                {
+                    Console.WriteLine("La reserva ya esta paga");
+                    return;
+                }
+            };
+
+
+        }
         #endregion Metodos
     }
 }
