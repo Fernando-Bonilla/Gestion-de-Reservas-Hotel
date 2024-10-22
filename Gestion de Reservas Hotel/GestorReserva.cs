@@ -111,6 +111,18 @@ namespace Gestion_de_Reservas_Hotel
 
         }
 
+        public static void MostrarMisRerservasActivas(string email)
+        {
+            DateTime today = new DateTime();
+            foreach(Reserva reserva in reservas)
+            {
+                if(reserva.EmailUsuario == email && reserva.FechaCheckIn > today)
+                {
+                    Console.WriteLine($"N° Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fech. Check-in: {GestorReserva.FormatoFecha(reserva.FechaCheckIn)}, Fech. Check-Out: {GestorReserva.FormatoFecha(reserva.FechaCheckOut)}, Fecha reserva: {reserva.FechaReserva}");
+                }
+            }
+        }
+
         public static string CkeckStatusHabitacion(int numHabitacion, DateTime fechaCheckIn, DateTime fechaCheckOut)
         { 
             List<int> habitacionesReservadas = new List<int>();

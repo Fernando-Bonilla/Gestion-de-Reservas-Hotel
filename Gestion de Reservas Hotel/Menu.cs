@@ -177,8 +177,10 @@ namespace Gestion_de_Reservas_Hotel
                 Console.WriteLine("2. Realizar reserva");
                 Console.WriteLine("");
                 Console.WriteLine("3. Modificar reserva");
+                Console.WriteLine("");                
+                Console.WriteLine("4. Listar mis reservas activas");
                 Console.WriteLine("");
-                Console.WriteLine("4. Cancelar reserva");
+                Console.WriteLine("5. Cancelar reserva");
                 Console.WriteLine("");
                 Console.WriteLine("0. Volver al menu principal");
 
@@ -202,7 +204,11 @@ namespace Gestion_de_Reservas_Hotel
                     case 3: GestorReserva.ModificarReserva();
                         break;
 
-                    case 4: GestorReserva.CancelarReserva();
+                    case 4:
+                        GestorReserva.MostrarMisRerservasActivas(GestorUsuario.currentUser.Email);
+                        break;
+
+                    case 5: GestorReserva.CancelarReserva();
                         break;  
 
                     case 0: salir = true;

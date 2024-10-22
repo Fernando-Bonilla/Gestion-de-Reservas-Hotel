@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace Gestion_de_Reservas_Hotel
 {
     internal class Pago
-    {
-        public static List<Pago> pagos = new List<Pago>();
+    {        
         private static int  IdPagoGenerator = 10250;
 
         #region Propiedades        
