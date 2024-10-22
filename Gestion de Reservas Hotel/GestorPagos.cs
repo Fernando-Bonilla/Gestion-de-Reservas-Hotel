@@ -9,13 +9,15 @@ namespace Gestion_de_Reservas_Hotel
     internal class GestorPagos
     {
         //Lista con los pagos realizados
-        public List<Pago> pagos = new List<Pago>();
+        public List<Pago> pagos = new List<Pago>();        
 
         #region Metodos
         public static void RealizarPago()
         {
             Console.WriteLine("Ingrese el N° de reserva");
             int numReserva = 0;
+
+            string metodoPago = "";
 
             bool successNumReserva = int.TryParse(Console.ReadLine(), out numReserva);
             while (!successNumReserva)
@@ -26,7 +28,6 @@ namespace Gestion_de_Reservas_Hotel
 
             // Chequeo que N° reserva exista
             bool numReservaExiste = GestorReserva.reservas.Any(reserva => reserva.IDReserva == numReserva); //Uso el metodo Linq Any, para check si existen reservas con el codigo proporcionado
-
 
             if (!numReservaExiste)
             {
@@ -44,6 +45,45 @@ namespace Gestion_de_Reservas_Hotel
                 }
             };
 
+
+            bool salir = false;
+
+            while (!salir)
+            {
+                Console.WriteLine("* Elija un Metodo de pago *");
+                Console.WriteLine("");
+
+                Console.WriteLine("1. Tarjeta credito");
+                Console.WriteLine("");
+                Console.WriteLine("2. Transferencia bancaria");
+
+                int opcion;                
+
+                bool success = int.TryParse(Console.ReadLine(), out opcion);
+                while (success == false)
+                {
+                    Console.WriteLine("Por favor ingrese una opcion valida");
+                    success = int.TryParse(Console.ReadLine(), out opcion);
+                }
+
+                switch (opcion)
+                {
+                    case 1:
+                        metodoPago = "Tarjeta credito";
+                        salir = true;
+                        break;
+
+                    case 2:
+                        metodoPago = "Transferencia bancaria";
+                        salir = true;
+                        break;
+
+                }
+
+            }
+
+            Console.WriteLine($"Usted a elegido el metodo de pago: {metodoPago}");
+            return;
 
         }
         #endregion Metodos

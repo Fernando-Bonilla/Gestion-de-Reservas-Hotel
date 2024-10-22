@@ -185,6 +185,39 @@ namespace Gestion_de_Reservas_Hotel
 
         public static void MostrarSubmenuGestionDePagos()
         {
+            bool salir = false;
+
+            while (!salir)
+            {
+                Console.WriteLine("* Gestion de Pagos *");
+                Console.WriteLine("");
+
+                Console.WriteLine("1. Realizar pago");
+                Console.WriteLine("");                
+                Console.WriteLine("0. Volver al menu principal");
+
+                int opcion;
+
+                bool success = int.TryParse(Console.ReadLine(), out opcion);
+                while (success == false)
+                {
+                    Console.WriteLine("Por favor ingrese una opcion valida");
+                    success = int.TryParse(Console.ReadLine(), out opcion);
+                }
+
+                switch (opcion)
+                {
+                    case 1:
+                        GestorPagos.RealizarPago();
+                        break;                    
+
+                    case 0:
+                        salir = true;
+                        break;
+
+                }
+
+            }
 
         }
 
