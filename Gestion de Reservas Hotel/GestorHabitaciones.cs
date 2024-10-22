@@ -29,7 +29,7 @@ namespace Gestion_de_Reservas_Hotel
         {
             
             if(habitaciones.Any(habitacion => habitacion.NumHabitacion == numHabitacion))
-            {
+            {                
                 return true;
             }else
             {
@@ -93,18 +93,16 @@ namespace Gestion_de_Reservas_Hotel
             {
 
                 if (numHabitacion == reserva.NroHabitacion && fechaCheckIn >= reserva.FechaCheckIn &&
-                    fechaCheckIn <= reserva.FechaCheckOut || fechaCheckOut <= reserva.FechaCheckOut &&
+                    fechaCheckIn <= reserva.FechaCheckOut || numHabitacion == reserva.NroHabitacion && fechaCheckOut <= reserva.FechaCheckOut &&
                     fechaCheckOut >= reserva.FechaCheckIn)
-                {
-                    Console.WriteLine("Entra al if de ocupada");
+                {                    
                     habitacionesReservadas.Add(numHabitacion); 
                     
                 }
             }
 
             if (habitacionesReservadas.Contains(numHabitacion))
-            {
-                Console.WriteLine("ocupadita");
+            {                
                 return "Ocupada";                
             }
             else

@@ -231,7 +231,7 @@ namespace Gestion_de_Reservas_Hotel
                 cambioHab = Console.ReadLine();
             }
 
-            Reserva ?reservaActual = reservas.FirstOrDefault(reserva => reserva.IDReserva == numReserva);
+            Reserva ?reservaActual = reservas.FirstOrDefault(reserva => reserva.IDReserva == numReserva); //busco la reserva actual para saber el numero de habitacion de esa reserva
             int numHabitacion = reservaActual.NroHabitacion;
             //int nuevoNumHabitacion = numHabitacion;
             if (cambioHab == "y")
@@ -245,13 +245,14 @@ namespace Gestion_de_Reservas_Hotel
                     successNumHab = int.TryParse(Console.ReadLine(), out numHabitacion);
                 }
             }
+            
             int nuevoNumHabitacion = numHabitacion;
 
             //Si desea cambiar chequeo que la unidad exista y este disponible en ese rango de fecha, ya sea que decida cambiar de hab o no
             if ((cambioHab == "y" || cambioHab == "n") && GestorHabitaciones.NumHabitacionExiste(nuevoNumHabitacion) == true &&
                 GestorHabitaciones.CheckStatusHabitacion(nuevoNumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")                
             {
-                Console.WriteLine("fech CI" + fechaCheckIn);
+                //Console.WriteLine("fech CI" + fechaCheckIn);
                 //Busco la reserva en la lista reservas y la modifico
                 foreach (Reserva reserva in reservas)
                 {
