@@ -8,10 +8,11 @@ namespace Gestion_de_Reservas_Hotel
 {
     internal class Pago
     {        
-        private static int  IdPagoGenerator = 10250;
+        private static int  IdPagoGenerator = 50321;
+        DateTime fechaPago = DateTime.Today;
 
         #region Propiedades        
-        public DateOnly FechaPago { get; set; }
+        public string FechaPago { get; private set; }
         public int Monto { get; set; }
         public string ?MetodoDePago { get; set; }
 
@@ -22,26 +23,17 @@ namespace Gestion_de_Reservas_Hotel
         #endregion Propiedades
 
         #region Constructores
-        public Pago(DateOnly fechaPago, int monto, string metodoPago, int idReserva)
+        public Pago(int monto, string metodoPago, int idReserva)
         {
             IdPago = IdPagoGenerator++;
-            FechaPago = fechaPago;
+            FechaPago = GestorReserva.FormatoFecha( fechaPago);
             Monto = monto;
             IdReserva = idReserva;
 
         }
         #endregion Constructores
 
-        #region Metodos
-        public void CancelarPago()
-        {
-
-        }
-
-        public void GenerarComprobantePago() // Por ahora lo pongo Void, pero ver despues que devuelve si genera un recibo en formato pdf
-        {
-
-        }
+        #region Metodos        
         #endregion Metodos
     }
 }

@@ -28,14 +28,14 @@ namespace Gestion_de_Reservas_Hotel
             
         }
 
-        public static string RealizarReserva()
+        public static void RealizarReserva()
         {
             // Verifica si hay un usuario logueado
-            if (GestorUsuario.currentUser == null)
+            /*if (GestorUsuario.currentUser == null)
             {
                 Console.WriteLine("Debe iniciar sesión antes de realizar una reserva.");
                 return "No se pudo crear la reserva";
-            }
+            }*/
 
             Console.WriteLine("Ingrese N° hab.: ");
             int numHabitacion;
@@ -87,9 +87,9 @@ namespace Gestion_de_Reservas_Hotel
                 success = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fechaCheckOut); //el metodo TryParseExact obliga al usuario a que ingrese formato "dd/MM/yyyy", y luego dos paramentros 1- IFormatProvider = null, para la cultura, y 2- DateTimeStyles = None, controla cómo se deben interpretar las fechas (si se permiten espacios en blanco)
             }
 
-            
-            if (GestorReserva.CkeckStatusHabitacion(numHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")
-            {
+            //Console.WriteLine(GestorHabitaciones.CheckStatusHabitacion(numHabitacion, fechaCheckIn, fechaCheckOut) + "Aca antes del if");
+            if (GestorHabitaciones.CheckStatusHabitacion(numHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")
+            {                
                 Reserva reserva = new Reserva(numHabitacion, fechaCheckIn, fechaCheckOut, GestorUsuario.currentUser.Id, GestorUsuario.currentUser.Email);
                 GestorReserva.reservas.Add(reserva);
 
@@ -97,15 +97,21 @@ namespace Gestion_de_Reservas_Hotel
                     $"Fecha Check-Out: {FormatoFecha(reserva.FechaCheckOut)}";
 
                 Console.WriteLine(mensajeResCreada);
+                
+                Console.WriteLine("Presione una tecla para continuar");
+                Console.ReadKey();
+                
+                //return mensajeResCreada; //Ver como resolver esto, estoy mostrando el mensaje arriba con el Console.WriteLine() y despues uso el return
+            }
+            else
+            {                
+                string mensajeFailReserva = "La habitacion no se encuentra disponible para ese rango de fechas";
+                Console.WriteLine(mensajeFailReserva);
 
                 Console.WriteLine("Presione una tecla para continuar");
                 Console.ReadKey();
 
-                return mensajeResCreada;
-            } else
-            {
-                string mensajeFailReserva = "La habitacion no se encuentra disponible para ese rango de fechas";
-                return mensajeFailReserva;
+                //return mensajeFailReserva; //Ver como resolver esto, estoy mostrando el mensaje arriba con el Console.WriteLine() y despues uso el return
             }       
 
 
@@ -123,7 +129,7 @@ namespace Gestion_de_Reservas_Hotel
             }
         }
 
-        public static string CkeckStatusHabitacion(int numHabitacion, DateTime fechaCheckIn, DateTime fechaCheckOut)
+        /*public static string CkeckStatusHabitacion(int numHabitacion, DateTime fechaCheckIn, DateTime fechaCheckOut)
         { 
             List<int> habitacionesReservadas = new List<int>();
             foreach (Reserva reserva in reservas)
@@ -146,7 +152,7 @@ namespace Gestion_de_Reservas_Hotel
                 return "Disponible";
             }
 
-        }
+        }*/
 
         public static void ModificarReserva()
         {
@@ -239,7 +245,7 @@ namespace Gestion_de_Reservas_Hotel
 
             //Si desea cambiar chequeo que la unidad exista y este disponible en ese rango de fecha, ya sea que decida cambiar de hab o no
             if (cambioHab == "y" | cambioHab == "n" && GestorHabitaciones.NumHabitacionExiste(nuevoNumHabitacion) == true &&
-                GestorReserva.CkeckStatusHabitacion(nuevoNumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")                
+                GestorHabitaciones.CheckStatusHabitacion(nuevoNumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")                
             {
                 Console.WriteLine("fech CI" + fechaCheckIn);
                 //Busco la reserva en la lista reservas y la modifico

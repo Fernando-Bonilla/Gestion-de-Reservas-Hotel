@@ -77,10 +77,36 @@ namespace Gestion_de_Reservas_Hotel
 
             foreach (Habitacion habitacion in habitaciones) 
             {
-                if(GestorReserva.CkeckStatusHabitacion(habitacion.NumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")
+                if(GestorHabitaciones.CheckStatusHabitacion(habitacion.NumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")
                 {
                     Console.WriteLine(habitacion.ToString());
                 } 
+            }
+
+        }
+
+        public static string CheckStatusHabitacion(int numHabitacion, DateTime fechaCheckIn, DateTime fechaCheckOut)
+        {            
+            List<int> habitacionesReservadas = new List<int>();
+
+            foreach (Reserva reserva in GestorReserva.reservas)
+            {
+
+                if (numHabitacion == reserva.NroHabitacion && fechaCheckIn >= reserva.FechaCheckIn &&
+                    fechaCheckIn <= reserva.FechaCheckOut && fechaCheckOut <= reserva.FechaCheckOut &&
+                    fechaCheckOut >= reserva.FechaCheckIn && fechaCheckOut <= reserva.FechaCheckOut || fechaCheckOut <= fechaCheckIn)
+                {
+                    habitacionesReservadas.Add(numHabitacion);                    
+                }
+            }
+
+            if (habitacionesReservadas.Contains(numHabitacion))
+            {                
+                return "Ocupada";                
+            }
+            else
+            {
+                return "Disponible";
             }
 
         }
