@@ -169,6 +169,7 @@ namespace Gestion_de_Reservas_Hotel
 
             // Chequeo que N° reserva exista
             bool numReservaExiste = reservas.Any(reserva => reserva.IDReserva == numReserva); //Uso el metodo Linq Any, para check si existen reservas con el codigo proporcionado
+            
 
             if (!numReservaExiste) 
             {
@@ -228,7 +229,8 @@ namespace Gestion_de_Reservas_Hotel
                 cambioHab = Console.ReadLine();
             }
 
-            int numHabitacion = 0;
+            Reserva ?reservaActual = reservas.FirstOrDefault(reserva => reserva.IDReserva == numReserva);
+            int numHabitacion = reservaActual.NroHabitacion;
             //int nuevoNumHabitacion = numHabitacion;
             if (cambioHab == "y")
             {                
@@ -244,7 +246,7 @@ namespace Gestion_de_Reservas_Hotel
             int nuevoNumHabitacion = numHabitacion;
 
             //Si desea cambiar chequeo que la unidad exista y este disponible en ese rango de fecha, ya sea que decida cambiar de hab o no
-            if (cambioHab == "y" | cambioHab == "n" && GestorHabitaciones.NumHabitacionExiste(nuevoNumHabitacion) == true &&
+            if ((cambioHab == "y" || cambioHab == "n") && GestorHabitaciones.NumHabitacionExiste(nuevoNumHabitacion) == true &&
                 GestorHabitaciones.CheckStatusHabitacion(nuevoNumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")                
             {
                 Console.WriteLine("fech CI" + fechaCheckIn);
