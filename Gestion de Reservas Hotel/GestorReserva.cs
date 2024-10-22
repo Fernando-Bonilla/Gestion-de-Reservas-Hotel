@@ -278,7 +278,7 @@ namespace Gestion_de_Reservas_Hotel
         {
             Console.WriteLine("Ingrese el codigo de Reserva");
             int codigoReserva;
-            bool success = int.TryParse(Console.ReadLine(), out codigoReserva);
+            bool success = int.TryParse(Console.ReadLine(), out codigoReserva);            
 
             while (!success)
             {
@@ -286,6 +286,7 @@ namespace Gestion_de_Reservas_Hotel
                 success = int.TryParse(Console.ReadLine(), out codigoReserva);
             }
 
+            
 
             //Como C# no me deja eliminar mientras recorro una colleccion, si el n° reserva matchea con uno existente la guarda en una nueva list
             List<Reserva> reservaAEliminar = new List<Reserva>();
@@ -303,14 +304,16 @@ namespace Gestion_de_Reservas_Hotel
                     if(diasAntesDeComienzoReserva > 2)
                     {
                         reservaAEliminar.Add(reserva);
-                    }                                                        
-                    
-                }else
-                {
-                    Console.WriteLine("Las reservas solo pueden ser canceladas 24 hs previas a la fecha de Check-in");
-                    counter++;
-                    break;
-                }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Las reservas solo pueden ser canceladas 24 hs previas a la fecha de Check-in");
+                        counter++;
+                        break;
+                    }
+
+                }                
+                
             }
 
             if (reservaAEliminar.Count == 0 && counter == 0)
