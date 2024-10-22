@@ -93,15 +93,18 @@ namespace Gestion_de_Reservas_Hotel
             {
 
                 if (numHabitacion == reserva.NroHabitacion && fechaCheckIn >= reserva.FechaCheckIn &&
-                    fechaCheckIn <= reserva.FechaCheckOut && fechaCheckOut <= reserva.FechaCheckOut &&
-                    fechaCheckOut >= reserva.FechaCheckIn && fechaCheckOut <= reserva.FechaCheckOut || fechaCheckOut <= fechaCheckIn)
+                    fechaCheckIn <= reserva.FechaCheckOut || fechaCheckOut <= reserva.FechaCheckOut &&
+                    fechaCheckOut >= reserva.FechaCheckIn)
                 {
-                    habitacionesReservadas.Add(numHabitacion);                    
+                    Console.WriteLine("Entra al if de ocupada");
+                    habitacionesReservadas.Add(numHabitacion); 
+                    
                 }
             }
 
             if (habitacionesReservadas.Contains(numHabitacion))
-            {                
+            {
+                Console.WriteLine("ocupadita");
                 return "Ocupada";                
             }
             else

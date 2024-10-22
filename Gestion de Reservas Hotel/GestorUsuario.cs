@@ -163,8 +163,7 @@ namespace Gestion_de_Reservas_Hotel
         public static bool ChequearSiUsuarioExiste(string email)
         {
             if(usuarios.Any(usuario => usuario.Email == email))
-            {
-                Console.WriteLine("true");
+            {                
                 return true;
             }else
             {
