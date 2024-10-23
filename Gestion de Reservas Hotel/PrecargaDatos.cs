@@ -18,6 +18,12 @@ namespace Gestion_de_Reservas_Hotel
             Usuario usuario2 = new Usuario("Nacho", "Bolso", "galli@gmail.com", "321", "321");
             GestorUsuario.usuarios.Add(usuario2);
 
+            Usuario usuario3 = new Usuario("Jorge", "Alvarez", "jorge@gmail.com", "123", "123");
+            GestorUsuario.usuarios.Add(usuario3);
+
+            Usuario usuario4 = new Usuario("Japo", "Rodriguez", "japo@gmail.com", "123", "123");
+            GestorUsuario.usuarios.Add(usuario4);
+
             // Instancio habitaciones
             Habitacion habitacion1 = new Habitacion(101, "simple", 2);
             GestorHabitaciones.AgregarHabitaciones(habitacion1);
