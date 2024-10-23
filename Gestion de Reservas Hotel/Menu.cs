@@ -167,8 +167,7 @@ namespace Gestion_de_Reservas_Hotel
                     case 3: GestorReserva.ModificarReserva();
                         break;
 
-                    case 4:
-                        GestorReserva.MostrarMisRerservasActivas(GestorUsuario.currentUser.Email);                        
+                    case 4: GestorReserva.MostrarMisRerservasActivas(GestorUsuario.currentUser.Email);                        
                         break;
 
                     case 5: GestorReserva.CancelarReserva();
@@ -223,9 +222,59 @@ namespace Gestion_de_Reservas_Hotel
 
         public static void MostrarSubmenuEstadisticasYReportes()
         {
+            bool salir = false;
 
-        }
+            while (!salir)
+            {
+                Console.WriteLine("* Estadisticas y reportes *");
+                Console.WriteLine("");
 
+                Console.WriteLine("1. Listar huespedes/usuarios");
+                Console.WriteLine("");
+                Console.WriteLine("2. Listar habitaciones disponibles");
+                Console.WriteLine("");
+                Console.WriteLine("3. Historial de reservas por usuario");
+                Console.WriteLine("");
+                Console.WriteLine("4. Ranking habitaciones mas reservadas");
+                Console.WriteLine("");
+                Console.WriteLine("0. Volver al menu principal");
+
+                int opcion;
+
+                bool success = int.TryParse(Console.ReadLine(), out opcion);
+                while (success == false)
+                {
+                    Console.WriteLine("Por favor ingrese una opcion valida");
+                    success = int.TryParse(Console.ReadLine(), out opcion);
+                }
+
+                switch (opcion)
+                {
+                    case 1:
+                        GestorReportes.ListarUsuarios();
+                        break;
+
+                    case 2:
+                        GestorReportes.ListarHabitacionesDisponibles();
+                        break;
+
+                    case 3:
+                        GestorReportes.HistorialReservas();
+                        break;
+
+                    case 4:
+                        GestorReportes.RankingHabitaciones();
+                        break;
+
+                    case 0:
+                        salir = true;
+                        break;
+
+                }
+
+            }
+
+        }   
 
         public static void LimpiarPantalla()
         {
