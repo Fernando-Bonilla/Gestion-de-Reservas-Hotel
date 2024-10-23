@@ -94,7 +94,7 @@ namespace Gestion_de_Reservas_Hotel
 
                 if (numHabitacion == reserva.NroHabitacion && fechaCheckIn >= reserva.FechaCheckIn &&
                     fechaCheckIn <= reserva.FechaCheckOut || numHabitacion == reserva.NroHabitacion && fechaCheckOut <= reserva.FechaCheckOut &&
-                    fechaCheckOut >= reserva.FechaCheckIn)
+                    fechaCheckOut >= reserva.FechaCheckIn || numHabitacion == reserva.NroHabitacion && fechaCheckIn <= reserva.FechaCheckOut && fechaCheckOut >= reserva.FechaCheckIn)
                 {                    
                     habitacionesReservadas.Add(numHabitacion); 
                     
