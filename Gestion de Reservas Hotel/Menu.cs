@@ -168,7 +168,7 @@ namespace Gestion_de_Reservas_Hotel
                         break;
 
                     case 4:
-                        GestorReserva.MostrarMisRerservasActivas(GestorUsuario.currentUser.Email);
+                        GestorReserva.MostrarMisRerservasActivas(GestorUsuario.currentUser.Email);                        
                         break;
 
                     case 5: GestorReserva.CancelarReserva();

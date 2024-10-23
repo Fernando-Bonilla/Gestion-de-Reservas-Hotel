@@ -122,8 +122,8 @@ namespace Gestion_de_Reservas_Hotel
                     //llamo al metodo que me calcula el costo de la reserva 
                     int costoEstadia = CalcularCostoReserva(reserva.IDReserva);
 
-                    Console.WriteLine($"N° Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fech. Check-in: {GestorReserva.FormatoFecha(reserva.FechaCheckIn)}, Fech. Check-Out: {GestorReserva.FormatoFecha(reserva.FechaCheckOut)}, Fecha reserva: {reserva.FechaReserva}, Total: ${costoEstadia}, Estado: {reserva.EstadoReserva}");
-                    
+                    //Console.WriteLine($"N° Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fech. Check-in: {GestorReserva.FormatoFecha(reserva.FechaCheckIn)}, Fech. Check-Out: {GestorReserva.FormatoFecha(reserva.FechaCheckOut)}, Fecha reserva: {reserva.FechaReserva}, Total: ${costoEstadia}, Estado: {reserva.EstadoReserva}");
+                    Console.WriteLine(reserva.ToString() + $", Costo total: ${costoEstadia}, {reserva.EmailUsuario}");
                 }
             }
         }        

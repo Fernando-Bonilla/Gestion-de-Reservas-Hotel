@@ -19,11 +19,11 @@ namespace Gestion_de_Reservas_Hotel
         public int IdPago { get; private set; }
 
         //IDReserva viene de la clase reserva
-        public int IdReserva {  get; set; }
+        public uint IdReserva {  get; set; }
         #endregion Propiedades
 
         #region Constructores
-        public Pago(int monto, string metodoPago, int idReserva)
+        public Pago(int monto, string metodoPago, uint idReserva)
         {
             IdPago = IdPagoGenerator++;
             FechaPago = GestorReserva.FormatoFecha( fechaPago);

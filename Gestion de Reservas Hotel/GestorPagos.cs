@@ -9,21 +9,21 @@ namespace Gestion_de_Reservas_Hotel
     internal class GestorPagos
     {
         //Lista con los pagos realizados
-        public List<Pago> pagos = new List<Pago>();        
+        public static List<Pago> pagos = new List<Pago>();        
 
         #region Metodos
         public static void RealizarPago()
         {
             Console.WriteLine("Ingrese el N° de reserva");
-            int numReserva = 0;
-
+            uint numReserva = 0;
             string metodoPago = "";
+            int costoTotal = 0; 
 
-            bool successNumReserva = int.TryParse(Console.ReadLine(), out numReserva);
+            bool successNumReserva = uint.TryParse(Console.ReadLine(), out numReserva);
             while (!successNumReserva)
             {
                 Console.WriteLine("Formato incorrecto, debe ingresar un registro numerico de al menos 5 digitos");
-                successNumReserva = int.TryParse(Console.ReadLine(), out numReserva);
+                successNumReserva = uint.TryParse(Console.ReadLine(), out numReserva);
             }
 
             // Chequeo que N° reserva exista
@@ -35,16 +35,21 @@ namespace Gestion_de_Reservas_Hotel
                 return;
             }
 
-            // Chequeo que la reserva no este ya paga
+            // Chequeo que la reserva esté a nombre del usuario que desea pagar y que no este ya paga
             foreach (Reserva reserva in GestorReserva.reservas)
             {
-                if (numReserva == reserva.IDReserva && reserva.EstadoReserva == "Paga")
+                if (numReserva == reserva.IDReserva && reserva.EmailUsuario != GestorUsuario.currentUser.Email)
+                {                    
+
+                    Console.WriteLine("No se encontraron reservas a su nombre con el codigo proporcionado");
+                    return;
+                }
+                else if (numReserva == reserva.IDReserva && reserva.EstadoReserva == "Paga")
                 {
                     Console.WriteLine("La reserva ya esta paga");
                     return;
                 }
             };
-
 
             bool salir = false;
 
@@ -52,7 +57,6 @@ namespace Gestion_de_Reservas_Hotel
             {
                 Console.WriteLine("* Elija un Metodo de pago *");
                 Console.WriteLine("");
-
                 Console.WriteLine("1. Tarjeta credito");
                 Console.WriteLine("");
                 Console.WriteLine("2. Transferencia bancaria");
@@ -82,8 +86,46 @@ namespace Gestion_de_Reservas_Hotel
 
             }
 
-            Console.WriteLine($"Usted a elegido el metodo de pago: {metodoPago}");
-            return;
+            Console.WriteLine($"Usted ha elegido el metodo de pago: {metodoPago}");
+
+            //Busco el costo total de la estadia con el metodo que lo calcula
+            costoTotal = GestorReserva.CalcularCostoReserva(numReserva);
+
+            Console.WriteLine("");
+            Console.WriteLine($"N° Reserva: {numReserva}, Total: ${costoTotal}");
+
+            //Pregunto si desea confirmar elpago
+            Console.WriteLine("");
+            Console.WriteLine("Desea confirmar el pago? Ingrese Y para si, o N para salir");
+            string? confirmaPago = Console.ReadLine();
+
+            //Chequeo que la opcion ingresada sea si o no
+            while (confirmaPago != "y" && confirmaPago != "n" || (string.IsNullOrEmpty(confirmaPago)) == true)
+            {
+                Console.WriteLine("Debe ingresar una opcion valida");
+                confirmaPago = Console.ReadLine();
+            }
+            
+            //Si confirma el pago ejecuto el sistema de pago
+            if (confirmaPago == "y")
+            {
+                Console.WriteLine($"La reserva N°: {numReserva} ha sido pagada exitosamente");
+                Pago pago = new(costoTotal, metodoPago, numReserva);                
+                GestorPagos.pagos.Add(pago);
+
+                //Recorro la lista de reservas y busco la que coincida para cambiarle el estado a Pago
+                foreach (Reserva reserva in GestorReserva.reservas) 
+                {
+                    if (reserva.IDReserva == numReserva)
+                    {
+                        reserva.EstadoReserva = "Pago";
+                    }
+                }                
+
+            }else
+            {
+                return;
+            }
 
         }
         #endregion Metodos
