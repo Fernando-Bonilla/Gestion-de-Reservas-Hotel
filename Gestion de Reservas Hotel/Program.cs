@@ -1,4 +1,5 @@
 ﻿using Gestion_de_Reservas_Hotel;
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
 PrecargaDatos.PrecargarDatos();
 

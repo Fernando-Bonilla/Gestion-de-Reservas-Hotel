@@ -92,9 +92,12 @@ namespace Gestion_de_Reservas_Hotel
                 string mensajeResCreada = $"Reserva Creada: Cod.Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fecha Check-In: {FormatoFecha(reserva.FechaCheckIn)}, " +
                     $"Fecha Check-Out: {FormatoFecha(reserva.FechaCheckOut)}";
 
-                Console.WriteLine(mensajeResCreada);               
-                
-                
+                Console.WriteLine(mensajeResCreada);
+
+                //PdfCreator.CreatePdfOnDesktop($"ReservaConfirmada_{DateTime.Now:yyyyMMddHHmmss}.pdf", reserva);
+                PdfCreator.CreatePdfOnDesktop($"ReservaConfirmada_{DateTime.Now:yyyyMMddHHmmss}.pdf", reserva);
+
+
                 //return mensajeResCreada; //Ver como resolver esto, estoy mostrando el mensaje arriba con el Console.WriteLine() y despues uso el return
             }
             else
@@ -106,6 +109,8 @@ namespace Gestion_de_Reservas_Hotel
 
                 //return mensajeFailReserva; //Ver como resolver esto, estoy mostrando el mensaje arriba con el Console.WriteLine() y despues uso el return
             }
+
+            
 
             Menu.LimpiarPantalla();
 
