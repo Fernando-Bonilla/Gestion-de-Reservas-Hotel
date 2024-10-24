@@ -31,10 +31,10 @@ namespace Gestion_de_Reservas_Hotel
             Habitacion habitacion2 = new Habitacion(102, "simple", 2);
             GestorHabitaciones.AgregarHabitaciones(habitacion2);
 
-            Habitacion habitacion3 = new Habitacion(103, "simple", 4);
+            Habitacion habitacion3 = new Habitacion(103, "simple", 2);
             GestorHabitaciones.AgregarHabitaciones(habitacion3);
 
-            Habitacion habitacion4 = new Habitacion(104, "simple", 6);
+            Habitacion habitacion4 = new Habitacion(104, "simple", 2);
             GestorHabitaciones.AgregarHabitaciones(habitacion4);
 
             Habitacion habitacion5 = new Habitacion(105, "simple", 2);

@@ -40,6 +40,7 @@ namespace Gestion_de_Reservas_Hotel
 
         public static void ListarHabitaciones()
         {
+            string tipoHabitacion = "";
             // Pidiendo la fecha de Check-in
             Console.WriteLine("Ingrese la Fecha de Check-In (formato: dd/MM/yyyy):");
 
@@ -75,9 +76,54 @@ namespace Gestion_de_Reservas_Hotel
                 success = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fechaCheckOut); //el metodo TryParseExact obliga al usuario a que ingrese formato "dd/MM/yyyy", y luego dos paramentros 1- IFormatProvider = null, para la cultura, y 2- DateTimeStyles = None, controla cómo se deben interpretar las fechas (si se permiten espacios en blanco)
             }
 
+            bool salir = false;
+
+            while (!salir)
+            {
+                Console.WriteLine("* Elija un tipo de habitacion *");
+                Console.WriteLine("");
+
+                Console.WriteLine("1. Simple (capacidad: 2 huespedes)");
+                Console.WriteLine("");
+                Console.WriteLine("2. Doble (capacidad: 4 huespedes)");
+                Console.WriteLine("");
+                Console.WriteLine("3. Suit (capacidad: 6 huespedes)");
+                Console.WriteLine("");                
+
+                int opcion;                
+
+                bool successTipoHab = int.TryParse(Console.ReadLine(), out opcion);
+                while (successTipoHab == false)
+                {
+                    Console.WriteLine("Por favor seleccione una opcion valida");
+                    successTipoHab = int.TryParse(Console.ReadLine(), out opcion);
+                }
+
+                switch (opcion)
+                {
+                    case 1:
+                        tipoHabitacion = "simple";
+                        salir = true;
+                        break;
+
+                    case 2:
+                        tipoHabitacion = "doble";
+                        salir = true;
+                        break;
+
+                    case 3:
+                        tipoHabitacion = "suit";
+                        salir = true;
+                        break;                    
+
+                }
+
+            }
+
+
             foreach (Habitacion habitacion in habitaciones) 
             {
-                if(GestorHabitaciones.CheckStatusHabitacion(habitacion.NumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible")
+                if(GestorHabitaciones.CheckStatusHabitacion(habitacion.NumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible" && habitacion.TipoHabitacion == tipoHabitacion)
                 {
                     Console.WriteLine(habitacion.ToString());
                 } 
