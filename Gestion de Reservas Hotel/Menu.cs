@@ -43,23 +43,29 @@ namespace Gestion_de_Reservas_Hotel
                 switch (opcion)
                 {
                     case 1:
+                        LimpiarPantallaSinConfirmar();
                         GestorUsuario.IniciarSesion();
                         break;
 
                     case 2:
+                        LimpiarPantallaSinConfirmar();
                         GestorUsuario.CrearUsuario();
+                        
                         break;
 
                     case 3:
+                        LimpiarPantallaSinConfirmar();
                         GestorUsuario.RecuperarPassword();
                         break;
 
                     case 0:
                         salir = true;
+                        LimpiarPantallaSinConfirmar();
                         break;
 
                     default:
                         Console.WriteLine("Opcion no valida");
+                        LimpiarPantalla();
                         break;
 
 
@@ -100,23 +106,28 @@ namespace Gestion_de_Reservas_Hotel
                 {
                     
                     case 1:
+                        LimpiarPantallaSinConfirmar();
                         MostrarSubmenuReservasYCancelaciones();
                         break;
 
                     case 2:
+                        LimpiarPantallaSinConfirmar();
                         MostrarSubmenuGestionDePagos();
                         break;
 
                     case 3:
+                        LimpiarPantallaSinConfirmar();
                         MostrarSubmenuEstadisticasYReportes();
                         break;
 
                     case 0:
                         salir = true;
+                        LimpiarPantallaSinConfirmar();
                         break;
 
-                    default:
+                    default:                        
                         Console.WriteLine("Opcion no valida");
+                        LimpiarPantalla();
                         break;
 
 
@@ -158,22 +169,38 @@ namespace Gestion_de_Reservas_Hotel
 
                 switch (opcion)
                 {
-                    case 1: GestorHabitaciones.ListarHabitaciones(); 
+                    case 1:
+                        LimpiarPantallaSinConfirmar();
+                        GestorHabitaciones.ListarHabitaciones(); 
                         break;
 
-                    case 2:GestorReserva.RealizarReserva();                        
+                    case 2:
+                        LimpiarPantallaSinConfirmar();
+                        GestorReserva.RealizarReserva();                        
                         break;  
 
-                    case 3: GestorReserva.ModificarReserva();
+                    case 3:
+                        LimpiarPantallaSinConfirmar();
+                        GestorReserva.ModificarReserva();
                         break;
 
-                    case 4: GestorReserva.MostrarMisRerservasActivas(GestorUsuario.currentUser.Email);                        
+                    case 4:
+                        LimpiarPantallaSinConfirmar();
+                        GestorReserva.MostrarMisRerservasActivas(GestorUsuario.currentUser.Email);                        
                         break;
 
-                    case 5: GestorReserva.CancelarReserva();
+                    case 5:
+                        LimpiarPantallaSinConfirmar();
+                        GestorReserva.CancelarReserva();
                         break;  
 
                     case 0: salir = true;
+                        LimpiarPantallaSinConfirmar();
+                        break;
+
+                    default:
+                        Console.WriteLine("Opcion no valida");
+                        LimpiarPantalla();
                         break;
 
                 }
@@ -207,13 +234,19 @@ namespace Gestion_de_Reservas_Hotel
                 switch (opcion)
                 {
                     case 1:
+                        LimpiarPantallaSinConfirmar();
                         GestorPagos.RealizarPago();
                         break;                    
 
                     case 0:
                         salir = true;
+                        LimpiarPantallaSinConfirmar();
                         break;
 
+                    default:
+                        Console.WriteLine("Opcion no valida");
+                        LimpiarPantalla();
+                        break;
                 }
 
             }
@@ -251,23 +284,28 @@ namespace Gestion_de_Reservas_Hotel
                 switch (opcion)
                 {
                     case 1:
+                        LimpiarPantallaSinConfirmar();
                         GestorReportes.ListarUsuarios();
                         break;
 
                     case 2:
+                        LimpiarPantallaSinConfirmar();
                         GestorReportes.ListarHabitacionesDisponibles();
                         break;
 
                     case 3:
+                        LimpiarPantallaSinConfirmar();
                         GestorReportes.HistorialReservasPorUsuario();
                         break;
 
                     case 4:
+                        LimpiarPantallaSinConfirmar();
                         GestorReportes.RankingHabitaciones();
                         break;
 
                     case 0:
                         salir = true;
+                        LimpiarPantallaSinConfirmar();
                         break;
 
                 }
@@ -281,6 +319,11 @@ namespace Gestion_de_Reservas_Hotel
             Console.WriteLine("");
             Console.WriteLine("Presiones una tecla para continuar");
             Console.ReadKey();
+            Console.Clear();
+        }
+
+        public static void LimpiarPantallaSinConfirmar()
+        {            
             Console.Clear();
         }
     }

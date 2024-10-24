@@ -72,13 +72,15 @@ namespace Gestion_de_Reservas_Hotel
                 }
                 else if(duracionReserva > 30)
                 {
-                    Console.WriteLine("La reserva no puede ser mayor a 30 dias seguidos");
+                    Console.WriteLine("La reserva no puede ser mayor a 30 dias seguidos, Por favor ingrese una fecha de Check-Out correcta:");   
+                    
                 }                
                 else 
                 {
                     Console.WriteLine("La fecha de Check-Out debe ser posterior a la fecha de Check-In. Inténtelo de nuevo:");
                 }
                 success = DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out fechaCheckOut); //el metodo TryParseExact obliga al usuario a que ingrese formato "dd/MM/yyyy", y luego dos paramentros 1- IFormatProvider = null, para la cultura, y 2- DateTimeStyles = None, controla cómo se deben interpretar las fechas (si se permiten espacios en blanco)
+                duracionReserva = (fechaCheckOut - fechaCheckIn).TotalDays;
             }
 
             //Console.WriteLine(GestorHabitaciones.CheckStatusHabitacion(numHabitacion, fechaCheckIn, fechaCheckOut) + "Aca antes del if");
@@ -90,10 +92,8 @@ namespace Gestion_de_Reservas_Hotel
                 string mensajeResCreada = $"Reserva Creada: Cod.Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fecha Check-In: {FormatoFecha(reserva.FechaCheckIn)}, " +
                     $"Fecha Check-Out: {FormatoFecha(reserva.FechaCheckOut)}";
 
-                Console.WriteLine(mensajeResCreada);
+                Console.WriteLine(mensajeResCreada);               
                 
-                Console.WriteLine("Presione una tecla para continuar");
-                Console.ReadKey();
                 
                 //return mensajeResCreada; //Ver como resolver esto, estoy mostrando el mensaje arriba con el Console.WriteLine() y despues uso el return
             }
@@ -102,12 +102,12 @@ namespace Gestion_de_Reservas_Hotel
                 string mensajeFailReserva = "La habitacion no se encuentra disponible para ese rango de fechas";
                 Console.WriteLine(mensajeFailReserva);
 
-                Console.WriteLine("Presione una tecla para continuar");
-                Console.ReadKey();
+                
 
                 //return mensajeFailReserva; //Ver como resolver esto, estoy mostrando el mensaje arriba con el Console.WriteLine() y despues uso el return
-            }       
+            }
 
+            Menu.LimpiarPantalla();
 
         }
 
@@ -126,6 +126,8 @@ namespace Gestion_de_Reservas_Hotel
                     Console.WriteLine(reserva.ToString() + $", Costo total: ${costoEstadia}, {reserva.EmailUsuario}");
                 }
             }
+
+            Menu.LimpiarPantalla();
         }        
 
         public static void ModificarReserva()
@@ -252,7 +254,9 @@ namespace Gestion_de_Reservas_Hotel
             }else
             {
                 Console.WriteLine("Habitacion no disponible en ese rango de fechas");
-            }                 
+            }
+
+            Menu.LimpiarPantalla();
 
         }
 
@@ -347,7 +351,9 @@ namespace Gestion_de_Reservas_Hotel
                     reservas.Remove(reserva);
 
                 }
-            }            
+            }
+
+            Menu.LimpiarPantalla();
 
         }
         #endregion Metodos

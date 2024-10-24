@@ -114,7 +114,7 @@ namespace Gestion_de_Reservas_Hotel
                         break;
 
                     case 3:
-                        tipoHabitacion = "suit";
+                        tipoHabitacion = "suite";
                         salir = true;
                         break;                    
 
@@ -122,14 +122,25 @@ namespace Gestion_de_Reservas_Hotel
 
             }
 
+            Menu.LimpiarPantallaSinConfirmar();
 
+            bool hayDisponibilidad = false;
             foreach (Habitacion habitacion in habitaciones) 
             {
                 if(GestorHabitaciones.CheckStatusHabitacion(habitacion.NumHabitacion, fechaCheckIn, fechaCheckOut) == "Disponible" && habitacion.TipoHabitacion == tipoHabitacion)
                 {
                     Console.WriteLine(habitacion.ToString());
-                } 
+                    hayDisponibilidad = true;
+                }
             }
+
+            if (!hayDisponibilidad)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("No hay habitaciones disponibles con los parametros ingresados");
+            }
+
+            Menu.LimpiarPantalla();
 
         }
 

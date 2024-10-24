@@ -12,8 +12,7 @@ namespace Gestion_de_Reservas_Hotel
         public static Usuario currentUser;
 
         public static void CrearUsuario()
-        {
-            Menu.LimpiarPantalla();
+        {           
 
             Console.WriteLine("");
             Console.WriteLine("Nombre: ");
@@ -79,6 +78,7 @@ namespace Gestion_de_Reservas_Hotel
             usuarios.Add(usuario);
 
             Console.WriteLine("Usuario creado");
+            Menu.LimpiarPantalla();
             
         }
 
@@ -134,6 +134,30 @@ namespace Gestion_de_Reservas_Hotel
             Console.WriteLine("Email: ");
             string? email = Console.ReadLine();
 
+            while (true)
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("El campo no puede estar vacío. Ingrese un email válido:");
+                }
+                else if (!ChequearFormatoEmail(email)) // Aquí se chequea solo el formato, no si está vacío
+                {
+                    Console.WriteLine("El correo electrónico no tiene un formato válido. Ingrese uno correcto:");
+                }
+                else if (!ChequearSiUsuarioExiste(email))
+                {
+                    Console.WriteLine("Email incorrecto:");
+                    Menu.LimpiarPantalla();
+                    return;                    
+                }
+                else
+                {
+                    break; // Si todas las validaciones pasan, sale del bucle
+                }
+
+                email = Console.ReadLine(); // Pide el email nuevamente si falló alguna validación
+            }           
+
             Console.WriteLine("Nueva Contraseña: ");
             string? password = Console.ReadLine();
 
@@ -158,6 +182,7 @@ namespace Gestion_de_Reservas_Hotel
             }
 
             Console.WriteLine("Contraseña cambiada");
+            Menu.LimpiarPantalla();
         }
 
         public static bool ChequearSiUsuarioExiste(string email)

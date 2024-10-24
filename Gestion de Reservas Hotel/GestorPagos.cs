@@ -127,6 +127,8 @@ namespace Gestion_de_Reservas_Hotel
                 return;
             }
 
+            Menu.LimpiarPantalla();
+
         }
         #endregion Metodos
     }

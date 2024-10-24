@@ -19,6 +19,8 @@ namespace Gestion_de_Reservas_Hotel
                 Console.WriteLine($"{usuario.Apellido} {usuario.Nombre} - {usuario.Email}");
             }
 
+            Menu.LimpiarPantalla();
+
         }
 
         public static void ListarHabitacionesDisponibles() 
@@ -66,6 +68,7 @@ namespace Gestion_de_Reservas_Hotel
                 }
             }
 
+            Menu.LimpiarPantalla();
 
         }
 
@@ -105,6 +108,8 @@ namespace Gestion_de_Reservas_Hotel
                     Console.WriteLine($"N° Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fech. Check-in: {GestorReserva.FormatoFecha(reserva.FechaCheckIn)}, Fech. Check-Out: {GestorReserva.FormatoFecha(reserva.FechaCheckOut)}, Fecha reserva: {reserva.FechaReserva}, Estado: {reserva.EstadoReserva}");
                 }
             }
+
+            Menu.LimpiarPantalla();
         }
 
         public static void RankingHabitaciones()
@@ -123,6 +128,8 @@ namespace Gestion_de_Reservas_Hotel
             {
                 Console.WriteLine($"Num. Habitacion: {item.Key}, Cantidad de veces reservada: {item.Value}");
             }
+
+            Menu.LimpiarPantalla();
         }
     }
 }
