@@ -11,7 +11,7 @@ namespace Gestion_de_Reservas_Hotel
 
         public static void ListarUsuarios()
         {
-            List<Usuario> usuariosOrdenadosPorApellido = GestorUsuario.usuarios.OrderBy(usuario => usuario.Apellido).ToList();
+            List<Usuario> usuariosOrdenadosPorApellido = GestorUsuario.usuarios.OrderBy(usuario => usuario.Apellido).ToList();            
             Console.WriteLine("***** Lista de usuarios *****");
             Console.WriteLine("");
             foreach(Usuario usuario in usuariosOrdenadosPorApellido)
@@ -69,9 +69,42 @@ namespace Gestion_de_Reservas_Hotel
 
         }
 
-        public static void HistorialReservas()
+        public static void HistorialReservasPorUsuario()
         {
+            Console.WriteLine("Ingrese un Email: ");
+            string? email = Console.ReadLine();
 
+            // Valida si el email existe o si su formato es incorrecto
+            while (true)
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("El campo no puede estar vacío. Ingrese un email válido:");
+                }
+                else if (!GestorUsuario.ChequearFormatoEmail(email)) // Aquí se chequea solo el formato, no si está vacío
+                {
+                    Console.WriteLine("El correo electrónico no tiene un formato válido. Ingrese uno correcto:");
+                }
+                else if (!GestorUsuario.ChequearSiUsuarioExiste(email))
+                {
+                    Console.WriteLine("No existen registros asociados a este email");
+                    break;
+                }
+                else
+                {
+                    break; // Si todas las validaciones pasan, sale del bucle
+                }
+
+                email = Console.ReadLine(); // Pide el email nuevamente si falló alguna validación
+            }
+            
+            foreach(Reserva reserva in GestorReserva.reservas)
+            {
+                if(email == reserva.EmailUsuario)
+                {
+                    Console.WriteLine($"N° Reserva: {reserva.IDReserva}, N° Hab.: {reserva.NroHabitacion}, Fech. Check-in: {GestorReserva.FormatoFecha(reserva.FechaCheckIn)}, Fech. Check-Out: {GestorReserva.FormatoFecha(reserva.FechaCheckOut)}, Fecha reserva: {reserva.FechaReserva}, Estado: {reserva.EstadoReserva}");
+                }
+            }
         }
 
         public static void RankingHabitaciones()

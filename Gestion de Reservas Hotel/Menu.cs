@@ -259,7 +259,7 @@ namespace Gestion_de_Reservas_Hotel
                         break;
 
                     case 3:
-                        GestorReportes.HistorialReservas();
+                        GestorReportes.HistorialReservasPorUsuario();
                         break;
 
                     case 4:

@@ -40,7 +40,9 @@ namespace Gestion_de_Reservas_Hotel
 
         public static void ListarHabitaciones()
         {
+            //En esta variable voy a guardar lo que el usuario elija a la hora de pickear un tipo de hab.
             string tipoHabitacion = "";
+
             // Pidiendo la fecha de Check-in
             Console.WriteLine("Ingrese la Fecha de Check-In (formato: dd/MM/yyyy):");
 
