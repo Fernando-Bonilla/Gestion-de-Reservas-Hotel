@@ -109,7 +109,20 @@ namespace Gestion_de_Reservas_Hotel
 
         public static void RankingHabitaciones()
         {
+            List <int> cantReservasPorHabitacion = new List<int>();
+            Dictionary<int, int> contador = new Dictionary<int, int>();
 
+            foreach(Reserva reserva in GestorReserva.reservas)
+            {
+                cantReservasPorHabitacion.Add(reserva.NroHabitacion);
+            }
+
+            contador = cantReservasPorHabitacion.GroupBy(numHab => numHab).ToDictionary(numHab => numHab.Key, cant => cant.Count()); //Tengo el diccionario contador y agrupo por numero de hab usndo GroupBy, luego ese sera la key y la cantidad de veces que se repite el value 
+
+            foreach(KeyValuePair<int, int> item in contador)
+            {
+                Console.WriteLine($"Num. Habitacion: {item.Key}, Cantidad de veces reservada: {item.Value}");
+            }
         }
     }
 }
