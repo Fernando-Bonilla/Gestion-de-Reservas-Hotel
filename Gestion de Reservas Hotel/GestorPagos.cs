@@ -112,6 +112,7 @@ namespace Gestion_de_Reservas_Hotel
                 Console.WriteLine($"La reserva N°: {numReserva} ha sido pagada exitosamente");
                 Pago pago = new(costoTotal, metodoPago, numReserva);                
                 GestorPagos.pagos.Add(pago);
+                PdfCreator.CreatePdfPago($"ReservaConfirmada_{DateTime.Now:yyyyMMddHHmmss}.pdf", pago);
 
                 //Recorro la lista de reservas y busco la que coincida para cambiarle el estado a Pago
                 foreach (Reserva reserva in GestorReserva.reservas) 

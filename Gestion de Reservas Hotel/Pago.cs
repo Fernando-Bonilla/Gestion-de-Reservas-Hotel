@@ -33,7 +33,12 @@ namespace Gestion_de_Reservas_Hotel
         }
         #endregion Constructores
 
-        #region Metodos        
+        #region Metodos    
+        public override string ToString()
+        {
+            string mensaje = $"N° Pago: {IdPago}, N° Reserva.: {IdReserva}, Fech. de pago: {FechaPago}";
+            return mensaje;
+        }
         #endregion Metodos
     }
 }

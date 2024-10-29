@@ -95,7 +95,7 @@ namespace Gestion_de_Reservas_Hotel
                 Console.WriteLine(mensajeResCreada);
 
                 //PdfCreator.CreatePdfOnDesktop($"ReservaConfirmada_{DateTime.Now:yyyyMMddHHmmss}.pdf", reserva);
-                PdfCreator.CreatePdfOnDesktop($"ReservaConfirmada_{DateTime.Now:yyyyMMddHHmmss}.pdf", reserva);
+                PdfCreator.CreatePdfReserva($"ReservaConfirmada_{DateTime.Now:yyyyMMddHHmmss}.pdf", reserva);
 
 
                 //return mensajeResCreada; //Ver como resolver esto, estoy mostrando el mensaje arriba con el Console.WriteLine() y despues uso el return
