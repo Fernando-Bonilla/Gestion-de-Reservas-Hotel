@@ -67,6 +67,21 @@ namespace Gestion_de_Reservas_Hotel
             Habitacion habitacion22 = new Habitacion(302, "suite", 6);
             GestorHabitaciones.AgregarHabitaciones(habitacion22);
 
+            Habitacion habitacion23 = new Habitacion(303, "suite", 6);
+            GestorHabitaciones.AgregarHabitaciones(habitacion23);
+
+            Habitacion habitacion24 = new Habitacion(304, "suite", 6);
+            GestorHabitaciones.AgregarHabitaciones(habitacion24);
+
+            Habitacion habitacion25 = new Habitacion(305, "suite", 6);
+            GestorHabitaciones.AgregarHabitaciones(habitacion25);
+
+            Habitacion habitacion26 = new Habitacion(306, "suite", 6);
+            GestorHabitaciones.AgregarHabitaciones(habitacion26);
+
+            Habitacion habitacion27 = new Habitacion(307, "suite", 6);
+            GestorHabitaciones.AgregarHabitaciones(habitacion27);
+
 
 
 

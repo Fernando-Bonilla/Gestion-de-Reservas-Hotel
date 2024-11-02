@@ -72,7 +72,7 @@ namespace Gestion_de_Reservas_Hotel
                     {
                         column.Item().Text($"Pago realizado exitosamente");
                         column.Item().Text($"Detalles del pago: {pago.ToString()}");
-                        // Agregar más detalles de la reserva si es necesario
+                        
                     });
                 });
             });
